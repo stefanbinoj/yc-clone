@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "app/api/auth/[...nextauth]"; // ⚠️ Make sure this is the correct path
+import { authOptions } from '../api/auth/[...nextauth]/options';
 
 const Navbar = async() => {
     const session = await getServerSession(authOptions);
@@ -23,7 +23,7 @@ const Navbar = async() => {
                     </>
                 ) : (
                 <>
-                    <h1>no</h1>
+                    
 
                 </>)
                 }
