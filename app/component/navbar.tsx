@@ -23,7 +23,7 @@ const Navbar =  () => {
               <button onClick={()=> signOut()}>Log out</button>
 
               <Link href={`/user/${session?.user?._id}`}>
-                pfp
+                {session.user.name}
               </Link>
             </>
           ) : (
