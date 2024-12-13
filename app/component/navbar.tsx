@@ -5,12 +5,6 @@ import { signIn , signOut , useSession } from "next-auth/react";
 
 const Navbar =  () => {
   const { data: session, status } = useSession();
-
-
-  const handleSignIn = () =>{
-    signIn('github',{redirect : false})
-  }
-
   return (
     <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
       <nav className="flex justify-between items-center">
@@ -26,7 +20,7 @@ const Navbar =  () => {
                 
               </Link>
 
-              <button onClick={handleSignIn}>Log out</button>
+              <button onClick={()=> signOut()}>Log out</button>
 
               <Link href={`/user/${session?.user?._id}`}>
                 pfp
@@ -34,7 +28,7 @@ const Navbar =  () => {
             </>
           ) : (
             
-              <button onClick={handleSignIn}>Login</button>
+              <button onClick={()=>signIn('github')}>Login</button>
           )}
         </div>
       </nav>
