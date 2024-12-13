@@ -1,12 +1,15 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import { signIn , signOut } from "next-auth/react";
+import { signIn , signOut , useSession } from "next-auth/react";
 
-const Navbar = async () => {
-  const session = await getServerSession(authOptions);
-  console.log(session)
+const Navbar =  () => {
+  const { data: session, status } = useSession();
+
+
+  const handleSignIn = () =>{
+    signIn('github',{redirect : false})
+  }
 
   return (
     <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
@@ -23,38 +26,20 @@ const Navbar = async () => {
                 
               </Link>
 
-              <form
-                action={async () => {
-                  "use server";
+              <button onClick={handleSignIn}>Log out</button>
 
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button type="submit">
-                  <span className="max-sm:hidden">Logout</span>
-                  
-                </button>
-              </form>
-
-              <Link href={`/user/${session?.id}`}>
+              <Link href={`/user/${session?.user?._id}`}>
                 pfp
               </Link>
             </>
           ) : (
-            <form
-              action={async () => {
-                "use server";
-
-                await signIn("github");
-              }}
-            >
-              <button type="submit">Login</button>
-            </form>
+            
+              <button onClick={handleSignIn}>Login</button>
           )}
         </div>
       </nav>
     </header>
   );
-};
+}
 
 export default Navbar;
