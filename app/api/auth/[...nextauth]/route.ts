@@ -26,7 +26,6 @@ export const authOptions: NextAuthOptions = {
         //     githubId: user.id, // GitHub-specific
         //   });
         // }
-        console.log("user is ",user)
 
         token._id=user.id;
         token.name = user.name;
